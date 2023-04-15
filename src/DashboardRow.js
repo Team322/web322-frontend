@@ -36,7 +36,7 @@ function DashboardRow({ index, url, isEncrypted, encryptionKey, chainOption, con
                     id="select-option"
                     className="border border-gray-300 rounded-md px-2 py-1"
                     value={chainOption}
-                    onChange={() => updateChainOption()}
+                    onChange={(e) => updateChainOption(e.target.value)}
                     defaultValue={chainOption}
                 >
                     <option value="Ethereum">Ethereum</option>
