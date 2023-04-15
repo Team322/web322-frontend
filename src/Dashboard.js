@@ -5,7 +5,8 @@ import DashboardRow from './DashboardRow';
 import DownloadButton from './DownloadButton';
 
 const Dashboard = ({ sessionID }) => {
-    const [userData, setUserData] = useState(null);
+    const [userName, setUserName] = useState('dummy');
+    const [apiCalls, setApiCalls] = useState([]);
     const [newEndpoint, setNewEndpoint] = useState('');
     const [endpoints, setEndpoints] = useState([]);
 
@@ -21,15 +22,16 @@ const Dashboard = ({ sessionID }) => {
         })
             .then(response => response.json())
             .then(json => {
-                setUserData(json);
+                setApiCalls(json['apiCalls']);
+                setEndpoints(json['apiEndpoints']);
+                setUserName(json['username']);
                 setIsLoading(false);
             })
             .catch(_ => {
-                setUserData({
-                    apiCalls: [],
-                    apiEndpoints: [],
-                    username: "dummy",
-                }); setIsLoading(false);
+                setApiCalls([]);
+                setEndpoints([]);
+                setUserName("dummy");
+                setIsLoading(false);
             });
     }, [sessionID]);
 
