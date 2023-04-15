@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import {USER_DATA_ENDPOINT} from './globals';
+import { USER_DATA_ENDPOINT } from './globals';
 import URLInput from './URLInput';
+import DashboardRow from './DashboardRow';
 
 const Dashboard = ({ sessionID }) => {
     const [userData, setUserData] = useState(null);
@@ -11,24 +12,23 @@ const Dashboard = ({ sessionID }) => {
 
     useEffect(() => {
         fetch(USER_DATA_ENDPOINT, {
-            method: 'POST',
+            method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({
-                sessionID
-            })
         })
             .then(response => response.json())
             .then(json => {
                 setUserData(json);
                 setIsLoading(false);
             })
-            .catch(_ => {setUserData({
-                apiCalls: [],
-                apiEndpoints: [],
-                username: "dummy",
-            }); setIsLoading(false); })
+            .catch(_ => {
+                setUserData({
+                    apiCalls: [],
+                    apiEndpoints: [],
+                    username: "dummy",
+                }); setIsLoading(false);
+            });
     }, [sessionID]);
 
     if (isLoading) {
@@ -41,23 +41,64 @@ const Dashboard = ({ sessionID }) => {
         setNewEndpoint('');
     };
 
-    const handleToggleEncryption = (index) => {
+    const setEncrypted = (index, newValue) => {
         setEndpoints(prevEndpoints => [
-            ...prevEndpoints.slice(0,index),
+            ...prevEndpoints.slice(0, index),
             {
                 ...prevEndpoints[index],
-                encrypted: !prevEndpoints[index].encrypted,
+                isEncrypted: newValue
             },
-            ...prevEndpoints.slice(index+1)
-        ]);
+            ...prevEndpoints.slice(index + 1)
+        ])
     };
+
+    const updateEncryptionKey = (index, key) => {
+        setEndpoints(prevEndpoints => [
+            ...prevEndpoints.slice(0, index),
+            {
+                ...prevEndpoints[index],
+                encryptionKey: key
+            },
+            ...prevEndpoints.slice(index + 1)
+        ])
+    }
+
+    const updateJsonParameters = (index, jsonParameters) => {
+        setEndpoints(prevEndpoints => [
+            ...prevEndpoints.slice(0, index),
+            {
+                ...prevEndpoints[index],
+                jsonParameters: jsonParameters
+            },
+            ...prevEndpoints.slice(index + 1)
+        ])
+    };
+
+    const onDelete = (index) => {
+        setEndpoints(prevEndpoints => [
+            ...prevEndpoints.slice(0, index),
+            ...prevEndpoints.slice(index + 1)
+        ])
+    }
+
+    const updateChainOption = (index, newOption) => {
+        setEndpoints(prevEndpoints => [
+            ...prevEndpoints.slice(0, index),
+            {
+                ...prevEndpoints[index],
+                chainOption: newOption
+            },
+            ...prevEndpoints.slice(index + 1)
+        ])
+    }
+
 
     return (
         <div className="container mx-auto mt-5">
-            <h1 className="text-3xl font-bold mb-5">Hello, {userData.username}!</h1>
+            <h1 className="text-3xl font-bold mb-5 w-full text-center">Hello, {userData.username}!</h1>
 
             <h2 className="text-xl font-bold mb-3">Recent API Calls</h2>
-            <table className="table-auto mb-5">
+            <table className="table-fixed mb-5 w-full bg-gray-200">
                 <thead>
                     <tr>
                         <th className="px-4 py-2">URL</th>
@@ -75,20 +116,44 @@ const Dashboard = ({ sessionID }) => {
             </table>
 
             <h2 className="text-xl font-bold mb-3">API Endpoints</h2>
-            <ul className="mb-5">
-                {endpoints.map((endpoint, index) => (
-                    <li key={index} className="flex items-center mb-2">
-                        <a href={endpoint.url} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">{endpoint.url}</a>
-                        <div className="ml-2">
-                            <label htmlFor={`encrypted-toggle-${index}`} className="text-sm font-medium">Encrypt</label>
-                            <input type="checkbox" id={`encrypted-toggle-${index}`} checked={endpoint.encrypted} onChange={() => handleToggleEncryption(index)} className="ml-1" />
-                        </div>
-                    </li>
-                ))}
-            </ul>
+            <table className="table-auto w-full text-center bg-gray-200">
+                <thead>
+                    <tr>
+                        <th>Index</th>
+                        <th>Endpoint</th>
+                        <th>Chain</th>
+                        <th>Chain Address</th>
+                        <th>Encryption?</th>
+                        <th>Encryption key</th>
+                        <th>JSON Parameters</th>
+                        <th>Delete entry</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {endpoints.map((endpoint, index) => (
+                        <DashboardRow
+                            key={index}
+                            index={index}
+                            url={endpoint.url}
+                            isEncrypted={endpoint.isEncrypted}
+                            encryptionKey={endpoint.encryptionKey}
+                            jsonParameters={endpoint.jsonParameters}
+                            setEncrypted={newValue => setEncrypted(index, newValue)}
+                            updateEncryptionKey={key => updateEncryptionKey(index, key)}
+                            updateJsonParameters={jsonParameters => updateJsonParameters(index, jsonParameters)}
+                            onDelete={() => onDelete(index)}
+                            chainOption={endpoint.chainOption}
+                            updateChainOption={newOption => updateChainOption(index, newOption)}
+                        />
+                    ))}
+                </tbody>
 
-            <div className="flex items-center mb-5">
-                <URLInput onUpdate={setNewEndpoint} placeholder="Add new API endpoint"/>
+            </table>
+
+            <div className='h-5' />
+
+            <div className="flex items-center mb-5 bg-gray-200 rounded-xl">
+                <URLInput onUpdate={setNewEndpoint} placeholder="Add new API endpoint" />
                 <button onClick={handleAddEndpoint} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-r-md">Add</button>
             </div>
         </div>

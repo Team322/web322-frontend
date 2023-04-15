@@ -24,8 +24,8 @@ function UrlInput({ onUpdate, placeholder }) {
   }
 
   return (
-    <div className="border-gray-300 rounded-l-md py-2 px-4 block w-full sm:text-sm sm:leading-5">
-      <input className="w-full" type="text" value={url} onBlur={handleBlur} onChange={event => setUrl(event.target.value)} placeholder={placeholder} />
+    <div className="rounded-l-md py-2 px-4 block w-full sm:text-sm sm:leading-5">
+      <input className="w-full bg-gray-200" type="text" value={url} onBlur={handleBlur} onChange={event => setUrl(event.target.value)} placeholder={placeholder} />
     </div>
   );
 }
