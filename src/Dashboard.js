@@ -142,7 +142,7 @@ const Dashboard = ({ sessionID }) => {
 
     return (
         <div className="container mx-auto mt-5">
-            <h1 className="text-3xl font-bold mb-5 w-full text-center">Hello, {userData.username}!</h1>
+            <h1 className="text-3xl font-bold mb-5 w-full text-center">Hello, {userName}!</h1>
 
             <h2 className="text-xl font-bold mb-3">Recent API Calls</h2>
             <div className="overflow-x-auto">
@@ -156,7 +156,7 @@ const Dashboard = ({ sessionID }) => {
                         </tr>
                     </thead>
                     <tbody>
-                        {userData.apiCalls.map((call, index) => (
+                        {apiCalls.map((call, index) => (
                             <tr key={index}>
                                 <td className="border px-4 py-2">{call.url}</td>
                                 <td className="border px-4 py-2">{call.timestamp}</td>
