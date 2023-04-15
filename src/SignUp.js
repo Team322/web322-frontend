@@ -4,7 +4,7 @@ import { SIGNUP_ENDPOINT } from './globals';
 export default function SignUpModal({ isOpen, onClose }) {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
-    const [attemptedSignup, setAttempted] = useState(false);
+    const [showSuccess, setShowSuccess] = useState(false);
     const [showError, setShowError] = useState(false);
 
     const handleSubmit = async (event) => {
@@ -20,10 +20,15 @@ export default function SignUpModal({ isOpen, onClose }) {
                 username,
                 password
             })
-        }).then(
-            setAttempted(true)
+        }).then(response => {
+            if (!response.ok) {
+                throw new Error('API call failed: ' + response.status);
+            }
+        }
+        ).then(
+            () => setShowSuccess(true)
         ).catch(
-            error => setShowError(true)
+            _ => setShowError(true)
         );
     };
 
@@ -87,6 +92,16 @@ export default function SignUpModal({ isOpen, onClose }) {
                                             Cancel
                                         </button>
                                     </div>
+                                    {showSuccess && <div className="mb-4">
+                                        <label className="block text-gray-700 font-bold mb-2" htmlFor="password">
+                                            Sign up successful
+                                        </label>
+                                    </div>}
+                                    {showError && <div className="mb-4">
+                                        <label className="block text-gray-700 font-bold mb-2" htmlFor="password">
+                                            Failed to sign up!
+                                        </label>
+                                    </div>}
                                 </form>
                             </div>
                         </div>
