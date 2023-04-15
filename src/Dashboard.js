@@ -23,7 +23,10 @@ const Dashboard = ({ sessionID }) => {
             .then(response => response.json())
             .then(json => {
                 setApiCalls(json['apiCalls']);
-                setEndpoints(json['apiEndpoints']);
+                setEndpoints(
+                    json["apiEndpoints"].map(
+                        endpoint => ({...endpoint, isEncrypted: endpoint["encryptionKey"] === null})
+                ));
                 setUserName(json['username']);
                 setIsLoading(false);
             })
