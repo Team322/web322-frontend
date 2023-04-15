@@ -37,7 +37,6 @@ const Dashboard = ({ sessionID }) => {
     }
 
     const handleAddEndpoint = () => {
-        if (!newEndpoint.startsWith('https://'));
         setEndpoints([...endpoints, { url: newEndpoint, encrypted: false }]);
         setNewEndpoint('');
     };
@@ -163,7 +162,7 @@ const Dashboard = ({ sessionID }) => {
 
             <div className="flex items-center mb-5 bg-gray-200 rounded-xl">
                 <URLInput onUpdate={setNewEndpoint} placeholder="Add new API endpoint" />
-                <button onClick={handleAddEndpoint} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-r-md">Add</button>
+                <button onClick={handleAddEndpoint} disabled={!/^(https?:\/\/)?([\w-]+\.)+[\w-]+(\/[\w-./?%&=]*)?$/.test(newEndpoint)} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-r-md">Add</button>
             </div>
         </div>
     );

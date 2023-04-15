@@ -16,9 +16,9 @@ export default function App() {
 
   return (
     <div>
-      {/*<button className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded" onClick={handleLoginDone}>
+      <button className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded" onClick={handleLoginDone}>
         Toggle components
-  </button>*/}
+  </button>
       {!isLoginDone ? <LandingPage onLoggedIn={handleSessionIDChange}/> : <Dashboard sessionID={sessionIDValue}/>}
     </div>
   );
