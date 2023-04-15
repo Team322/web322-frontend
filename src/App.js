@@ -4,7 +4,7 @@ import Dashboard from './Dashboard';
 
 export default function App() {
 
-  const [isLoginDone, setLoginDone] = useState(true);
+  const [isLoginDone, setLoginDone] = useState(false);
   const handleLoginDone = () => {
     setLoginDone(!isLoginDone);
   }
@@ -19,7 +19,7 @@ export default function App() {
       {/*<button className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded" onClick={handleLoginDone}>
         Toggle components
   </button>*/}
-      {isLoginDone ? <LandingPage onLoggedIn={handleSessionIDChange}/> : <Dashboard sessionID={sessionIDValue}/>}
+      {!isLoginDone ? <LandingPage onLoggedIn={handleSessionIDChange}/> : <Dashboard sessionID={sessionIDValue}/>}
     </div>
   );
 }
