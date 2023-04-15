@@ -2,13 +2,28 @@ import React, { useState } from 'react';
 
 export default function SignUpModal({ isOpen, onClose }) {
     const [username, setUsername] = useState("");
-    const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [confirmPassword, setConfirmPassword] = useState("");
+    const [attemptedSignup, setAttempted] = useState(false);
+    const [showError, setShowError] = useState(false);
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
         // Handle form submission
+
+        const response = await fetch('https://34.67.227.210/signup', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                username,
+                password
+            })
+        }).then(
+            setAttempted(true)
+        ).catch(
+            error => setShowError(true)
+        );
     };
 
     return (
@@ -45,19 +60,6 @@ export default function SignUpModal({ isOpen, onClose }) {
                                         />
                                     </div>
                                     <div className="mb-4">
-                                        <label className="block text-gray-700 font-bold mb-2" htmlFor="email">
-                                            Email
-                                        </label>
-                                        <input
-                                            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                                            id="email"
-                                            type="email"
-                                            placeholder="Enter your email"
-                                            value={email}
-                                            onChange={(event) => setEmail(event.target.value)}
-                                        />
-                                    </div>
-                                    <div className="mb-4">
                                         <label className="block text-gray-700 font-bold mb-2" htmlFor="password">
                                             Password
                                         </label>
@@ -68,19 +70,6 @@ export default function SignUpModal({ isOpen, onClose }) {
                                             placeholder="Enter your password"
                                             value={password}
                                             onChange={(event) => setPassword(event.target.value)}
-                                        />
-                                    </div>
-                                    <div className="mb-6">
-                                        <label className="block text-gray-700 font-bold mb-2" htmlFor="confirm-password">
-                                            Confirm Password
-                                        </label>
-                                        <input
-                                            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                                            id="confirm-password"
-                                            type="password"
-                                            placeholder="Confirm your password"
-                                            value={confirmPassword}
-                                            onChange={(event) => setConfirmPassword(event.target.value)}
                                         />
                                     </div>
                                     <div className="flex items-center justify-between">
