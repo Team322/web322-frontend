@@ -5,7 +5,10 @@ COPY package*.json ./
 RUN npm install
 COPY . .
 EXPOSE 3000
-CMD [ "npm", "start" ]
+RUN npm run build
+RUN rm -rf /volume/*
+# RUN cp -r build /volume/
+CMD [ "cp", "-r", "build", "/volume/" ]
 
 #Stage 2
 # FROM nginx:1.19.0
