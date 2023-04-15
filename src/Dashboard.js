@@ -40,12 +40,14 @@ const Dashboard = ({ sessionID }) => {
     };
 
     const handleToggleEncryption = (index) => {
-        setEndpoints(prevEndpoints => {
-            const updatedEndpoints = [...prevEndpoints];
-            updatedEndpoints[index].encrypted = !updatedEndpoints[index].encrypted;
-            return updatedEndpoints;
-        });
-        console.log(endpoints[index].encrypted);
+        setEndpoints(prevEndpoints => [
+            ...prevEndpoints.slice(0,index),
+            {
+                ...prevEndpoints[index],
+                encrypted: !prevEndpoints[index].encrypted,
+            },
+            ...prevEndpoints.slice(index+1)
+        ]);
     };
 
     return (
@@ -77,7 +79,7 @@ const Dashboard = ({ sessionID }) => {
                         <a href={endpoint.url} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">{endpoint.url}</a>
                         <div className="ml-2">
                             <label htmlFor={`encrypted-toggle-${index}`} className="text-sm font-medium">Encrypt</label>
-                            <input type="checkbox" id={`encrypted-toggle-${index}`} checked={endpoint.encrypted} onClick={() => handleToggleEncryption(index)} className="ml-1" />
+                            <input type="checkbox" id={`encrypted-toggle-${index}`} checked={endpoint.encrypted} onChange={() => handleToggleEncryption(index)} className="ml-1" />
                         </div>
                     </li>
                 ))}
