@@ -1,7 +1,7 @@
 function DownloadButton({url, download}) {
     const downloadFile = () => {
       const anchor = document.createElement('a');
-      anchor.href = url;
+      anchor.href = url + download;
       anchor.download = download;
       document.body.appendChild(anchor);
       anchor.click();
