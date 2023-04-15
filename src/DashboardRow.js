@@ -6,7 +6,7 @@ const generateAESKey = () => {
     return Array.from(keyBytes, (byte) => ('0' + byte.toString(16)).slice(-2)).join('');
 };
 
-function DashboardRow({ index, url, isEncrypted, encryptionKey, chainOption, chainAddress, jsonParameters, setEncrypted, updateEncryptionKey, updateChainOption, updateJsonParameters, updateChainAddress, onDelete, onSave }) {
+function DashboardRow({ index, url, isEncrypted, encryptionKey, chainOption, contractAddress, jsonParameters, setEncrypted, updateEncryptionKey, updateChainOption, updateJsonParameters, updateContractAddress, onDelete, onSave }) {
     const handleCheckboxChange = () => {
         setEncrypted(!isEncrypted);
         if (isEncrypted) {
@@ -37,8 +37,8 @@ function DashboardRow({ index, url, isEncrypted, encryptionKey, chainOption, cha
                     className="border border-gray-300 rounded-md px-2 py-1"
                     value={chainOption}
                     onChange={() => updateChainOption()}
+                    defaultValue={chainOption}
                 >
-                    <option value="">-- Select --</option>
                     <option value="Ethereum">Ethereum</option>
                     <option value="Gnosis">Gnosis</option>
                     <option value="Polygon">Polygon</option>
@@ -51,12 +51,13 @@ function DashboardRow({ index, url, isEncrypted, encryptionKey, chainOption, cha
             <td className="border px-4 py-2">
                 <input
                     type="text"
-                    value={chainAddress}
+                    value={contractAddress}
                     className="border rounded-lg px-2 py-1"
+                    onChange={(e) => updateContractAddress(e.target.value)}
                 />
             </td>
             <td className="border px-4 py-2">
-                <input type="checkbox" checked={isEncrypted} onChange={handleCheckboxChange} />
+                <input type="checkbox" checked={isEncrypted} onChange={handleCheckboxChange} value={isEncrypted} />
             </td>
             <td className="border px-4 py-2">
                 <input

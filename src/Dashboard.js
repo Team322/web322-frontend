@@ -38,7 +38,7 @@ const Dashboard = ({ sessionID }) => {
     }
 
     const handleAddEndpoint = () => {
-        setEndpoints([...endpoints, { url: newEndpoint, encrypted: false }]);
+        setEndpoints([...endpoints, { url: newEndpoint, isEncrypted: false, chainOption: "Etherium", contractAddress: '', jsonParameters: ''}]);
         setNewEndpoint('');
     };
 
@@ -51,6 +51,7 @@ const Dashboard = ({ sessionID }) => {
             },
             ...prevEndpoints.slice(index + 1)
         ])
+        console.log(endpoints);
     };
 
     const updateEncryptionKey = (index, key) => {
@@ -62,6 +63,7 @@ const Dashboard = ({ sessionID }) => {
             },
             ...prevEndpoints.slice(index + 1)
         ])
+        console.log(endpoints);
     }
 
     const updateJsonParameters = (index, jsonParameters) => {
@@ -73,6 +75,7 @@ const Dashboard = ({ sessionID }) => {
             },
             ...prevEndpoints.slice(index + 1)
         ])
+        console.log(endpoints);
     };
 
     const onDelete = (index) => {
@@ -88,6 +91,7 @@ const Dashboard = ({ sessionID }) => {
             },
             body: JSON.stringify({index: index})
         });
+        console.log(endpoints);
     }
 
     const onSave = (index) => {
@@ -104,6 +108,7 @@ const Dashboard = ({ sessionID }) => {
                 }
             )
         })
+        console.log(endpoints);
     }
 
     const updateChainOption = (index, newOption) => {
@@ -115,6 +120,21 @@ const Dashboard = ({ sessionID }) => {
             },
             ...prevEndpoints.slice(index + 1)
         ])
+        console.log(endpoints);
+
+    }
+
+    const updateContractAddress = (index, address) => {
+        setEndpoints(prevEndpoints => [
+            ...prevEndpoints.slice(0, index),
+            {
+                ...prevEndpoints[index],
+                contractAddress: address
+            },
+            ...prevEndpoints.slice(index + 1)
+        ])
+        console.log(endpoints);
+
     }
 
 
@@ -173,6 +193,7 @@ const Dashboard = ({ sessionID }) => {
                                 isEncrypted={endpoint.isEncrypted}
                                 encryptionKey={endpoint.encryptionKey}
                                 jsonParameters={endpoint.jsonParameters}
+                                contractAddress={endpoint.contractAddress}
                                 setEncrypted={newValue => setEncrypted(index, newValue)}
                                 updateEncryptionKey={key => updateEncryptionKey(index, key)}
                                 updateJsonParameters={jsonParameters => updateJsonParameters(index, jsonParameters)}
@@ -180,6 +201,7 @@ const Dashboard = ({ sessionID }) => {
                                 chainOption={endpoint.chainOption}
                                 updateChainOption={newOption => updateChainOption(index, newOption)}
                                 onSave={() => onSave(index)}
+                                updateContractAddress={address => updateContractAddress(index, address)}
                             />
                         ))}
                     </tbody>
