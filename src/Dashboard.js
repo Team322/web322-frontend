@@ -78,7 +78,15 @@ const Dashboard = ({ sessionID }) => {
         setEndpoints(prevEndpoints => [
             ...prevEndpoints.slice(0, index),
             ...prevEndpoints.slice(index + 1)
-        ])
+        ]);
+        fetch(DELETE_ENDPOINT, {
+            method: 'POST',
+            credentials: 'include',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({index: index})
+        });
     }
 
     const updateChainOption = (index, newOption) => {
@@ -151,6 +159,7 @@ const Dashboard = ({ sessionID }) => {
                                 onDelete={() => onDelete(index)}
                                 chainOption={endpoint.chainOption}
                                 updateChainOption={newOption => updateChainOption(index, newOption)}
+                                onSave={() => onSave(index)}
                             />
                         ))}
                     </tbody>
