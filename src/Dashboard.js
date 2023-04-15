@@ -155,7 +155,6 @@ const Dashboard = () => {
                         <tr>
                             <th className="px-4 py-2">URL</th>
                             <th className="px-4 py-2">Timestamp</th>
-                            <th className="px-4 py-2">Response Code</th>
                             <th className="px-4 py-2">TCP traffic download</th>
                         </tr>
                     </thead>
@@ -164,7 +163,6 @@ const Dashboard = () => {
                             <tr key={index}>
                                 <td className="border px-4 py-2">{call.url}</td>
                                 <td className="border px-4 py-2">{call.timestamp}</td>
-                                <td className="border px-4 py-2">{call.responseCode}</td>
                                 <td className="border px-4 py-2"><DownloadButton url={DOWNLOAD_ENDPOINT} download={call.uid + '.zip'} /></td>
                             </tr>
                         ))}
