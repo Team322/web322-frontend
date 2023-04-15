@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { SAVE_ENDPOINT, USER_DATA_ENDPOINT, DELETE_ENDPOINT } from './globals';
+import { SAVE_ENDPOINT, USER_DATA_ENDPOINT, DELETE_ENDPOINT, DOWNLOAD_ENDPOINT } from './globals';
 import URLInput from './URLInput';
 import DashboardRow from './DashboardRow';
+import DownloadButton from './DownloadButton';
 
 const Dashboard = ({ sessionID }) => {
     const [userData, setUserData] = useState(null);
@@ -127,6 +128,7 @@ const Dashboard = ({ sessionID }) => {
                     <thead className="bg-gray-200 text-gray-700">
                         <tr>
                             <th className="px-4 py-2">URL</th>
+                            <th className="px-4 py-2">Timestamp</th>
                             <th className="px-4 py-2">Response Code</th>
                             <th className="px-4 py-2">TCP traffic download</th>
                         </tr>
@@ -135,7 +137,9 @@ const Dashboard = ({ sessionID }) => {
                         {userData.apiCalls.map((call, index) => (
                             <tr key={index}>
                                 <td className="border px-4 py-2">{call.url}</td>
+                                <td className="border px-4 py-2">{call.timestamp}</td>
                                 <td className="border px-4 py-2">{call.responseCode}</td>
+                                <td className="border px-4 py-2"><DownloadButton url={DOWNLOAD_ENDPOINT} download={call.uid + '.zip'}</td>
                             </tr>
                         ))}
                     </tbody>

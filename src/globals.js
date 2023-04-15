@@ -4,3 +4,4 @@ export const LOGIN_ENDPOINT = BACKEND_URL + "/login";
 export const SIGNUP_ENDPOINT = BACKEND_URL + "/signup";
 export const DELETE_ENDPOINT = BACKEND_URL + "/delete";
 export const SAVE_ENDPOINT = BACKEND_URL + "/save";
+export const DOWNLOAD_ENDPOINT = BACKEND_URL + "/download/";
