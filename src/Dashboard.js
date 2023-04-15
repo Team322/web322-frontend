@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { USER_DATA_ENDPOINT } from './globals';
+import { SAVE_ENDPOINT, USER_DATA_ENDPOINT, DELETE_ENDPOINT } from './globals';
 import URLInput from './URLInput';
 import DashboardRow from './DashboardRow';
 
@@ -87,6 +87,22 @@ const Dashboard = ({ sessionID }) => {
             },
             body: JSON.stringify({index: index})
         });
+    }
+
+    const onSave = (index) => {
+        fetch(SAVE_ENDPOINT, {
+            method: 'POST',
+            credentials: 'include',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(
+                {
+                    index: index,
+                    ...endpoints[index],
+                }
+            )
+        })
     }
 
     const updateChainOption = (index, newOption) => {
