@@ -12,8 +12,8 @@ const attemptLogin = async (username, password, onLoggedIn) => {
           username,
           password
         })
-      });
-      onLoggedIn(response.body['SessionID']);
+      }).then(() => onLoggedIn())
+      .catch(_ => console.log("Login failed!"));
 }
 
 export default function LogInModal({ isOpen, onClose, onLoggedIn}) {

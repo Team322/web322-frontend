@@ -25,12 +25,12 @@ export default function LandingPage({onLoggedIn}) {
 
   return (
       <div className="flex flex-col items-center justify-center h-screen">
-        <h1 className="text-4xl font-bold mb-8">Web3 👉 2</h1>
-        <div className="flex space-x-4">
-          <button className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded" onClick={handleSignupModalOpen}>
+        <h1 className="text-8xl font-bold mb-8">Web3 👉 2</h1>
+        <div className="flex space-x-6 m-8">
+          <button className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-4 px-8 rounded mx-10 text-4xl" onClick={handleSignupModalOpen}>
             Sign up
           </button>
-          <button className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded" onClick={handleLoginModalOpen}>
+          <button className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-4 px-8 rounded mx-10 text-4xl" onClick={handleLoginModalOpen}>
             Log in
           </button>
           <SignUpModal isOpen={isSignupModalOpen} onClose={handleSignupModalClose} />
