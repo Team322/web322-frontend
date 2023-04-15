@@ -38,7 +38,7 @@ const Dashboard = ({ sessionID }) => {
     }
 
     const handleAddEndpoint = () => {
-        setEndpoints([...endpoints, { url: newEndpoint, isEncrypted: false, chainOption: "Etherium", contractAddress: '', jsonParameters: ''}]);
+        setEndpoints([...endpoints, { url: newEndpoint, isEncrypted: false, chainOption: "Ethereum", contractAddress: '', jsonParameters: ''}]);
         setNewEndpoint('');
     };
 
