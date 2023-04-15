@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import {USER_DATA_ENDPOINT} from './globals';
+import URLInput from './URLInput';
 
 const Dashboard = ({ sessionID }) => {
     const [userData, setUserData] = useState(null);
@@ -35,7 +36,7 @@ const Dashboard = ({ sessionID }) => {
     }
 
     const handleAddEndpoint = () => {
-        console.log(newEndpoint);
+        if (!newEndpoint.startsWith('https://'));
         setEndpoints([...endpoints, { url: newEndpoint, encrypted: false }]);
         setNewEndpoint('');
     };
@@ -87,7 +88,7 @@ const Dashboard = ({ sessionID }) => {
             </ul>
 
             <div className="flex items-center mb-5">
-                <input type="text" value={newEndpoint} onChange={(e) => setNewEndpoint(e.target.value)} className="border-gray-300 rounded-l-md py-2 px-4 block w-full sm:text-sm sm:leading-5" placeholder="Add new API endpoint" />
+                <URLInput onUpdate={setNewEndpoint} placeholder="Add new API endpoint"/>
                 <button onClick={handleAddEndpoint} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-r-md">Add</button>
             </div>
         </div>

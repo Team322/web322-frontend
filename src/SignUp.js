@@ -11,7 +11,7 @@ export default function SignUpModal({ isOpen, onClose }) {
         event.preventDefault();
         // Handle form submission
 
-        const response = await fetch(SIGNUP_ENDPOINT, {
+        await fetch(SIGNUP_ENDPOINT, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
