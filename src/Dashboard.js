@@ -13,6 +13,7 @@ const Dashboard = ({ sessionID }) => {
     useEffect(() => {
         fetch(USER_DATA_ENDPOINT, {
             method: 'GET',
+            credentials: 'include',
             headers: {
                 'Content-Type': 'application/json'
             },
