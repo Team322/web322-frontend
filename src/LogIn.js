@@ -12,7 +12,9 @@ const attemptLogin = async (username, password, onLoggedIn) => {
           username,
           password
         })
-      }).then(() => onLoggedIn())
+      })
+      .then(response => {if (!response.ok) throw Error("Login failed!")})
+      .then(() => onLoggedIn())
       .catch(_ => console.log("Login failed!"));
 }
 
