@@ -98,59 +98,67 @@ const Dashboard = ({ sessionID }) => {
             <h1 className="text-3xl font-bold mb-5 w-full text-center">Hello, {userData.username}!</h1>
 
             <h2 className="text-xl font-bold mb-3">Recent API Calls</h2>
-            <table className="table-fixed mb-5 w-full bg-gray-200">
-                <thead>
-                    <tr>
-                        <th className="px-4 py-2">URL</th>
-                        <th className="px-4 py-2">Response Code</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {userData.apiCalls.map((call, index) => (
-                        <tr key={index}>
-                            <td className="border px-4 py-2">{call.url}</td>
-                            <td className="border px-4 py-2">{call.responseCode}</td>
+            <div className="overflow-x-auto">
+                <table className="w-full border border-gray-200 rounded-lg overflow-hidden">
+                    <thead className="bg-gray-200 text-gray-700">
+                        <tr>
+                            <th className="px-4 py-2">URL</th>
+                            <th className="px-4 py-2">Response Code</th>
+                            <th className="px-4 py-2">TCP traffic download</th>
                         </tr>
-                    ))}
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        {userData.apiCalls.map((call, index) => (
+                            <tr key={index}>
+                                <td className="border px-4 py-2">{call.url}</td>
+                                <td className="border px-4 py-2">{call.responseCode}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
+
+            <div className="h-10" />
 
             <h2 className="text-xl font-bold mb-3">API Endpoints</h2>
-            <table className="table-auto w-full text-center bg-gray-200">
-                <thead>
-                    <tr>
-                        <th>Index</th>
-                        <th>Endpoint</th>
-                        <th>Chain</th>
-                        <th>Chain Address</th>
-                        <th>Encryption?</th>
-                        <th>Encryption key</th>
-                        <th>JSON Parameters</th>
-                        <th>Delete entry</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {endpoints.map((endpoint, index) => (
-                        <DashboardRow
-                            key={index}
-                            index={index}
-                            url={endpoint.url}
-                            isEncrypted={endpoint.isEncrypted}
-                            encryptionKey={endpoint.encryptionKey}
-                            jsonParameters={endpoint.jsonParameters}
-                            setEncrypted={newValue => setEncrypted(index, newValue)}
-                            updateEncryptionKey={key => updateEncryptionKey(index, key)}
-                            updateJsonParameters={jsonParameters => updateJsonParameters(index, jsonParameters)}
-                            onDelete={() => onDelete(index)}
-                            chainOption={endpoint.chainOption}
-                            updateChainOption={newOption => updateChainOption(index, newOption)}
-                        />
-                    ))}
-                </tbody>
+            <div className="overflow-x-auto">
+                <table className="w-full border border-gray-200 rounded-lg overflow-hidden">
+                    <thead className="bg-gray-200 text-gray-700">
+                        <tr>
+                            <th className="border px-4 py-2">Index</th>
+                            <th className="border px-4 py-2">Endpoint</th>
+                            <th className="border px-4 py-2">Chain</th>
+                            <th className="border px-4 py-2">Chain Address</th>
+                            <th className="border px-4 py-2">Encryption?</th>
+                            <th className="border px-4 py-2">Encryption key</th>
+                            <th className="border px-4 py-2"></th>
+                            <th className="border px-4 py-2"></th>
+                            <th className="border px-4 py-2"></th>
+                        </tr>
+                    </thead>
+                    <tbody className="text-gray-700">
+                        {endpoints.map((endpoint, index) => (
+                            <DashboardRow
+                                key={index}
+                                index={index}
+                                url={endpoint.url}
+                                isEncrypted={endpoint.isEncrypted}
+                                encryptionKey={endpoint.encryptionKey}
+                                jsonParameters={endpoint.jsonParameters}
+                                setEncrypted={newValue => setEncrypted(index, newValue)}
+                                updateEncryptionKey={key => updateEncryptionKey(index, key)}
+                                updateJsonParameters={jsonParameters => updateJsonParameters(index, jsonParameters)}
+                                onDelete={() => onDelete(index)}
+                                chainOption={endpoint.chainOption}
+                                updateChainOption={newOption => updateChainOption(index, newOption)}
+                            />
+                        ))}
+                    </tbody>
 
-            </table>
+                </table>
+            </div>
 
-            <div className='h-5' />
+            <div className='h-10' />
 
             <div className="flex items-center mb-5 bg-gray-200 rounded-xl">
                 <URLInput onUpdate={setNewEndpoint} placeholder="Add new API endpoint" />

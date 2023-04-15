@@ -6,7 +6,7 @@ const generateAESKey = () => {
     return Array.from(keyBytes, (byte) => ('0' + byte.toString(16)).slice(-2)).join('');
 };
 
-function DashboardRow({ index, url, isEncrypted, encryptionKey, chainOption, chainAddress, jsonParameters, setEncrypted, updateEncryptionKey, updateChainOption, updateJsonParameters, updateChainAddress, onDelete }) {
+function DashboardRow({ index, url, isEncrypted, encryptionKey, chainOption, chainAddress, jsonParameters, setEncrypted, updateEncryptionKey, updateChainOption, updateJsonParameters, updateChainAddress, onDelete, onSave }) {
     const handleCheckboxChange = () => {
         setEncrypted(!isEncrypted);
         if (isEncrypted) {
@@ -49,7 +49,11 @@ function DashboardRow({ index, url, isEncrypted, encryptionKey, chainOption, cha
                 </select>
             </td>
             <td className="border px-4 py-2">
-                0x01249304904
+                <input
+                    type="text"
+                    value={chainAddress}
+                    className="border rounded-lg px-2 py-1"
+                />
             </td>
             <td className="border px-4 py-2">
                 <input type="checkbox" checked={isEncrypted} onChange={handleCheckboxChange} />
@@ -66,6 +70,11 @@ function DashboardRow({ index, url, isEncrypted, encryptionKey, chainOption, cha
             <td className="border px-4 py-2">
                 <button onClick={handleEditClick} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                     Edit JSON
+                </button>
+            </td>
+            <td className="border px-4 py-2">
+                <button onClick={onSave} className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+                    Save
                 </button>
             </td>
             <td className="border px-4 py-2">
