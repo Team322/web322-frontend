@@ -1,4 +1,5 @@
-import React from 'react';
+import React, {useState} from 'react';
+import JSONModal from './JSONModal';
 
 const generateAESKey = () => {
     const keyBytes = new Uint8Array(64);
@@ -16,8 +17,10 @@ function DashboardRow({ index, url, isEncrypted, encryptionKey, chainOption, con
         }
     };
 
+    const [modalOpen, setModalOpen] = useState(false);
+
     const handleEditClick = () => {
-        // handle JSON editing here
+        setModalOpen(true);
     };
 
     return (
@@ -37,7 +40,6 @@ function DashboardRow({ index, url, isEncrypted, encryptionKey, chainOption, con
                     className="border border-gray-300 rounded-md px-2 py-1"
                     value={chainOption}
                     onChange={(e) => updateChainOption(e.target.value)}
-                    defaultValue={chainOption}
                 >
                     <option value="Ethereum">Ethereum</option>
                     <option value="Gnosis">Gnosis</option>
@@ -83,6 +85,7 @@ function DashboardRow({ index, url, isEncrypted, encryptionKey, chainOption, con
                     Delete
                 </button>
             </td>
+            <JSONModal isOpen={modalOpen} onRequestClose={() => setModalOpen(false)} onSubmit={json=>updateJsonParameters(json)} defaultJSON={jsonParameters}/>
         </tr>
     );
 }

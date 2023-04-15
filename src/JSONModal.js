@@ -3,8 +3,8 @@ import Modal from 'react-modal';
 
 Modal.setAppElement('#root');
 
-const JSONModal = ({ isOpen, onRequestClose, onSubmit }) => {
-  const [jsonString, setJsonString] = useState('');
+const JSONModal = ({ isOpen, onRequestClose, onSubmit, defaultJSON }) => {
+  const [jsonString, setJsonString] = useState(defaultJSON);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -26,12 +26,15 @@ const JSONModal = ({ isOpen, onRequestClose, onSubmit }) => {
       onRequestClose={onRequestClose}
       contentLabel="JSON Modal"
     >
-      <form onSubmit={handleSubmit}>
-        <label>
-          JSON:
-          <textarea value={jsonString} onChange={handleChange} />
+      <form onSubmit={handleSubmit} style={{height: "80%"}}>
+        <label className="h-fit">
+          Enter JSON parameters to pass to the Web2 service:
+          <textarea className="w-full border-slate-600 bg-gray-100 resize-none h-full" value={jsonString} onChange={handleChange} />
         </label>
-        <button type="submit">Submit</button>
+        <div className="h-3" />
+        <button type="submit" className="w-full bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Submit</button>
+        <div className="h-2" />
+        <button onClick={onRequestClose} className="w-full bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">Cancel</button>
       </form>
     </Modal>
   );

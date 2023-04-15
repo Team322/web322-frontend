@@ -9,7 +9,6 @@ export default function App() {
     setLoginDone(!isLoginDone);
   }
 
-  const [sessionIDValue, setSessionIDValue] = useState('');
   function handleSessionIDChange() {
     setLoginDone(true);
   }
@@ -19,7 +18,7 @@ export default function App() {
       <button className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded" onClick={handleLoginDone}>
         Toggle components
   </button>
-      {!isLoginDone ? <LandingPage onLoggedIn={handleSessionIDChange}/> : <Dashboard sessionID={sessionIDValue}/>}
+      {!isLoginDone ? <LandingPage onLoggedIn={handleSessionIDChange}/> : <Dashboard/>}
     </div>
   );
 }

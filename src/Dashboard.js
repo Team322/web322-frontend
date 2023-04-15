@@ -4,7 +4,7 @@ import URLInput from './URLInput';
 import DashboardRow from './DashboardRow';
 import DownloadButton from './DownloadButton';
 
-const Dashboard = ({ sessionID }) => {
+const Dashboard = () => {
     const [userName, setUserName] = useState('dummy');
     const [apiCalls, setApiCalls] = useState([]);
     const [newEndpoint, setNewEndpoint] = useState('');
@@ -22,10 +22,11 @@ const Dashboard = ({ sessionID }) => {
         })
             .then(response => response.json())
             .then(json => {
+                console.log(json);
                 setApiCalls(json['apiCalls']);
                 setEndpoints(
                     json["apiEndpoints"].map(
-                        endpoint => ({...endpoint, isEncrypted: endpoint["encryptionKey"] === null})
+                        endpoint => ({...endpoint, isEncrypted: endpoint["encryptionKey"] !== null})
                 ));
                 setUserName(json['username']);
                 setIsLoading(false);
@@ -36,7 +37,7 @@ const Dashboard = ({ sessionID }) => {
                 setUserName("dummy");
                 setIsLoading(false);
             });
-    }, [sessionID]);
+    }, []);
 
     if (isLoading) {
         return <div>Loading...</div>;
@@ -218,7 +219,7 @@ const Dashboard = ({ sessionID }) => {
 
             <div className="flex items-center mb-5 bg-gray-200 rounded-xl">
                 <URLInput onUpdate={setNewEndpoint} placeholder="Add new API endpoint" />
-                <button onClick={handleAddEndpoint} disabled={newEndpoint.length == 0 || !/^(https?:\/\/)?([\w-]+\.)+[\w-]+(\/[\w-./?%&=]*)?$/.test(newEndpoint)} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-r-md">Add</button>
+                <button onClick={handleAddEndpoint} disabled={newEndpoint.length === 0 || !/^(https?:\/\/)?([\w-]+\.)+[\w-]+(\/[\w-./?%&=]*)?$/.test(newEndpoint)} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-r-md">Add</button>
             </div>
         </div>
     );

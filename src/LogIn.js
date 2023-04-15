@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { LOGIN_ENDPOINT } from './globals';
 
 const attemptLogin = async (username, password, onLoggedIn) => {
-    const response = await fetch(LOGIN_ENDPOINT, {
+    await fetch(LOGIN_ENDPOINT, {
         method: 'POST',
         credentials: 'include',
         headers: {
