@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { SIGNUP_ENDPOINT } from './globals';
 
 export default function SignUpModal({ isOpen, onClose }) {
     const [username, setUsername] = useState("");
@@ -10,7 +11,7 @@ export default function SignUpModal({ isOpen, onClose }) {
         event.preventDefault();
         // Handle form submission
 
-        const response = await fetch('https://34.67.227.210/signup', {
+        const response = await fetch(SIGNUP_ENDPOINT, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import {USER_DATA_ENDPOINT} from './globals';
 
 const Dashboard = ({ sessionID }) => {
     const [userData, setUserData] = useState(null);
@@ -8,7 +9,7 @@ const Dashboard = ({ sessionID }) => {
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
-        fetch('https://34.67.227.210/dashboard_data', {
+        fetch(USER_DATA_ENDPOINT, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

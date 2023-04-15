@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
+import { LOGIN_ENDPOINT } from './globals';
 
 const attemptLogin = async (username, password, onLoggedIn) => {
-    const response = await fetch('https://34.67.227.210/login', {
+    const response = await fetch(LOGIN_ENDPOINT, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
